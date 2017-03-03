@@ -1,0 +1,11 @@
+[Unit]
+Description=NefariousCoin daemon serivce
+After=network.target
+
+[Service]
+Type=simple
+User=NefariousCoin
+ExecStart=/opt/NefariousCoin/NefariousCoind
+
+[Install]
+WantedBy=multi-user.target

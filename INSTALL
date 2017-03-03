@@ -1,0 +1,9 @@
+Building NefariousCoin
+
+See doc/readme-qt.rst for instructions on building NefariousCoin Qt,
+the intended-for-end-users, nice-graphical-interface, reference
+implementation of NefariousCoin.
+
+See doc/build-*.txt for instructions on building NefariousCoind,
+the intended-for-services, no-graphical-interface, reference
+implementation of NefariousCoin.

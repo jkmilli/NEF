@@ -1,0 +1,13 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=NefariousCoin
+Comment=NefariousCoin P2P Cryptocurrency
+Comment[ru]=NefariousCoin, P2P криптовалюта
+Comment[fr]=NefariousCoin, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=NefariousCoin, eşten eşe kriptografik sanal para birimi
+Exec=/usr/bin/NefariousCoin-qt
+Terminal=false
+Type=Application
+Icon=/usr/share/pixmaps/NefariousCoin80.xpm
+MimeType=x-scheme-handler/NefariousCoin;
+Categories=Office;

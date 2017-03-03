@@ -1,0 +1,2 @@
+debian/bin/NefariousCoind usr/bin
+src/NefariousCoind usr/lib/NefariousCoin

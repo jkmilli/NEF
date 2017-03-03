@@ -1,0 +1,11 @@
+[Protocol]
+exec=NefariousCoin-qt '%u'
+protocol=NefariousCoin
+input=none
+output=none
+helper=true
+listing=
+reading=false
+writing=false
+makedir=false
+deleting=false

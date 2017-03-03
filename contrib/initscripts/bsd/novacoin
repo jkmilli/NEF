@@ -1,0 +1,68 @@
+#!/bin/sh
+
+# PROVIDE: NefariousCoin
+# REQUIRE: LOGIN
+# KEYWORD: shutdown
+
+#
+# Add the following lines to /etc/rc.conf.local or /etc/rc.conf
+# to enable this service:
+#
+# NefariousCoin_enable (bool): Set to NO by default. Set this variable to YES if you want to enable NefariousCoin service.
+# NefariousCoin_config (path): Set to /usr/local/etc/NefariousCoin.conf by default.
+# NefariousCoin_user:  The user account NefariousCoin daemon runs as. It uses 'root' user by default.
+# NefariousCoin_group: The group account NefariousCoin daemon runs as. It uses 'wheel' group by default.
+# NefariousCoin_datadir (str): Default to "/var/db/NefariousCoin". Base data directory.
+
+. /etc/rc.subr
+
+name=NefariousCoin
+rcvar=NefariousCoin_enable
+
+: ${NefariousCoin_enable:=NO}
+: ${NefariousCoin_config=/usr/local/etc/NefariousCoin.conf}
+: ${NefariousCoin_datadir=/var/db/NefariousCoin}
+: ${NefariousCoin_user="root"}
+: ${NefariousCoin_group="wheel"}
+
+required_files=${NefariousCoin_config}
+command=/usr/local/bin/NefariousCoind
+NefariousCoin_chdir=${NefariousCoin_datadir}
+pidfile="${NefariousCoin_datadir}/NefariousCoind.pid"
+stop_cmd=NefariousCoin_stop
+command_args="-conf=${NefariousCoin_config} -datadir=${NefariousCoin_datadir} -daemon -pid=${pidfile}"
+start_precmd="${name}_prestart"
+
+NefariousCoin_create_datadir()
+{
+	echo "Creating data directory"
+	eval mkdir -p ${NefariousCoin_datadir}
+	[ $? -eq 0 ] && chown -R ${NefariousCoin_user}:${NefariousCoin_group} ${NefariousCoin_datadir}
+}
+
+NefariousCoin_prestart()
+{
+	if [ ! -d "${NefariousCoin_datadir}/." ]; then
+		NefariousCoin_create_datadir || return 1
+	fi
+}
+
+NefariousCoin_requirepidfile()
+{
+	if [ ! "0`check_pidfile ${pidfile} ${command}`" -gt 1 ]; then
+		echo "${name} not running? (check $pidfile)."
+		exit 1
+	fi
+}
+
+NefariousCoin_stop()
+{
+    NefariousCoin_requirepidfile
+
+	echo "Stopping ${name}."
+	eval ${command} -conf=${NefariousCoin_config} -datadir=${NefariousCoin_datadir} stop
+	wait_for_pids ${rc_pid}
+}
+
+load_rc_config $name
+run_rc_command "$1"

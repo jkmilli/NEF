@@ -1,0 +1,5 @@
+NefariousCoin-qt usr/bin
+share/pixmaps/NefariousCoin32.xpm usr/share/pixmaps
+share/pixmaps/NefariousCoin80.xpm usr/share/pixmaps
+debian/NefariousCoin-qt.desktop usr/share/applications
+debian/NefariousCoin-qt.protocol usr/share/kde4/services/
